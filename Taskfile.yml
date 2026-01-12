@@ -1,0 +1,61 @@
+version: '3'
+
+tasks:
+  install:
+    desc: Install dependencies with uv
+    cmds:
+      - uv sync --dev
+
+  format:
+    desc: Format code with ruff
+    cmds:
+      - uv run ruff format src tests
+
+  lint:
+    desc: Lint code with ruff
+    cmds:
+      - uv run ruff check src tests
+
+  lint-fix:
+    desc: Lint and fix code with ruff
+    cmds:
+      - uv run ruff check --fix src tests
+
+  test:
+    desc: Run tests
+    cmds:
+      - uv run pytest tests -v
+
+  coverage:
+    desc: Run tests with coverage report
+    cmds:
+      - uv run pytest tests --cov=src --cov-report=term-missing --cov-report=html
+
+  dev:
+    desc: Run server in development mode
+    cmds:
+      - uv run simple-mcp-server
+
+  inspect:
+    desc: Test server with MCP Inspector
+    cmds:
+      - npx @modelcontextprotocol/inspector uv run simple-mcp-server
+
+  check:
+    desc: Run all checks (format, lint, test, coverage)
+    cmds:
+      - task: format
+      - task: lint
+      - task: coverage
+
+  clean:
+    desc: Clean build artifacts and cache
+    cmds:
+      - rm -rf .pytest_cache
+      - rm -rf .ruff_cache
+      - rm -rf htmlcov
+      - rm -rf .coverage
+      - rm -rf dist
+      - rm -rf build
+      - find . -type d -name __pycache__ -exec rm -rf {} +
+      - find . -type f -name "*.pyc" -delete
