@@ -189,12 +189,7 @@ simple-mcp-server/
 
 This project follows functional programming principles:
 - Pure functions with no side effects
-- Dictionary-based dispatch instead of if/elif chains
-- Early returns to avoid nesting
-- Type hints throughout
-- 100% test coverage requirement
-
-See [.claude/CLAUDE.md](.claude/CLAUDE.md) for detailed coding guidelines.
+- 80% test coverage requirement
 
 ## Requirements
 
